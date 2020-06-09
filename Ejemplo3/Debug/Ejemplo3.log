@@ -1,0 +1,26 @@
+﻿  graphicsclass.cpp
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\imagenes.h(61): warning C4101: 'e': variable local sin referencia
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\imagenes.h(80): warning C4101: 'e': variable local sin referencia
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(53): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(55): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(56): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(59): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(61): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(62): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(212): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(213): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(214): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+  main.cpp
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\imagenes.h(61): warning C4101: 'e': variable local sin referencia
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\imagenes.h(80): warning C4101: 'e': variable local sin referencia
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(53): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(55): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(56): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(59): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(61): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(62): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(212): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(213): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\vr\desktop\lmad\gc1\terrenogc1\terrenogc1\ejemplo3\geometrias.h(214): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+  Generando código...
+  Ejemplo3.vcxproj -> C:\Users\VR\Desktop\LMAD\GC1\TerrenoGC1\TerrenoGC1\Debug\Ejemplo3.exe

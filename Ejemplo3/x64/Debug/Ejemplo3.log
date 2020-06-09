@@ -1,0 +1,4 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(452,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (Ejemplo3.vcxproj, TerrenoGC1.vcxproj, TerrenoSkyGC1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  FPSCamara.cpp
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\FPSCamara.cpp(61,61): warning C4305: 'argument': truncation from 'double' to 'float'
+  Ejemplo3.vcxproj -> C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\x64\Debug\TerrenoSkyBillGC1.exe
