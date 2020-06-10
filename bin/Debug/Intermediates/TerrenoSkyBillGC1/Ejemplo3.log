@@ -1,0 +1,19 @@
+﻿  cubo.cpp
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\Imagenes.h(61,26): warning C4101: 'e': unreferenced local variable
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\Imagenes.h(80,28): warning C4101: 'e': unreferenced local variable
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(53,32): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(64,32): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(75,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(86,31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(128,126): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(130,40): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(131,126): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(134,119): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(136,38): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(137,119): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(140,40): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(141,40): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(287,55): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(288,74): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\renderables\Geometrias.h(289,55): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Ejemplo3.vcxproj -> C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\bin\Debug\TerrenoSkyBillGC1.exe

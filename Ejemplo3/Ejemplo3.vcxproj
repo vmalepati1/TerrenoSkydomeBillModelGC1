@@ -18,6 +18,52 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\api\openglclass.cpp" />
+    <ClCompile Include="src\graficos\camera\cameraclass.cpp" />
+    <ClCompile Include="src\graficos\camera\FPSCamara.cpp" />
+    <ClCompile Include="src\graficos\graphicsclass.cpp" />
+    <ClCompile Include="src\graficos\lightclass.cpp" />
+    <ClCompile Include="src\graficos\lightshaderclass.cpp" />
+    <ClCompile Include="src\graficos\renderables\cubo.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\matematicas\mat4.cpp" />
+    <ClCompile Include="src\matematicas\Quaternion.cpp" />
+    <ClCompile Include="src\matematicas\vec2.cpp" />
+    <ClCompile Include="src\matematicas\vec3.cpp" />
+    <ClCompile Include="src\matematicas\vec4.cpp" />
+    <ClCompile Include="src\platform\InputGerente.cpp" />
+    <ClCompile Include="src\platform\Timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\api\openglclass.h" />
+    <ClInclude Include="src\graficos\camera\cameraclass.h" />
+    <ClInclude Include="src\graficos\camera\FPSCamara.h" />
+    <ClInclude Include="src\graficos\graphicsclass.h" />
+    <ClInclude Include="src\graficos\Imagenes.h" />
+    <ClInclude Include="src\graficos\lightclass.h" />
+    <ClInclude Include="src\graficos\lightshaderclass.h" />
+    <ClInclude Include="src\graficos\renderables\Billboard.h" />
+    <ClInclude Include="src\graficos\renderables\cubo.h" />
+    <ClInclude Include="src\graficos\renderables\Geometrias.h" />
+    <ClInclude Include="src\graficos\renderables\Modelos.h" />
+    <ClInclude Include="src\graficos\renderables\Renderable.h" />
+    <ClInclude Include="src\graficos\renderables\SkyDome.h" />
+    <ClInclude Include="src\graficos\renderables\Terreno.h" />
+    <ClInclude Include="src\matematicas\mat4.h" />
+    <ClInclude Include="src\matematicas\Quaternion.h" />
+    <ClInclude Include="src\matematicas\vec2.h" />
+    <ClInclude Include="src\matematicas\vec3.h" />
+    <ClInclude Include="src\matematicas\vec4.h" />
+    <ClInclude Include="src\matematicas\VectorRR.h" />
+    <ClInclude Include="src\platform\GamepadRR.h" />
+    <ClInclude Include="src\platform\InputGerente.h" />
+    <ClInclude Include="src\platform\Timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\cubo.ps" />
+    <None Include="shaders\cubo.vs" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{DCCD4ADE-CF9A-4BBF-83DC-14709793AB75}</ProjectGuid>
@@ -73,6 +119,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -82,9 +142,11 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader />
+      <AdditionalIncludeDirectories>src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glu32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -94,6 +156,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>xinput.lib;winmm.lib;gdiplus.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -108,10 +171,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -122,63 +187,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="cameraclass.cpp" />
-    <ClCompile Include="FPSCamara.cpp" />
-    <ClCompile Include="graphicsclass.cpp" />
-    <ClCompile Include="InputGerente.cpp" />
-    <ClCompile Include="lightclass.cpp" />
-    <ClCompile Include="lightshaderclass.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="mat4.cpp" />
-    <ClCompile Include="openglclass.cpp" />
-    <ClCompile Include="Quaternion.cpp" />
-    <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="vec2.cpp" />
-    <ClCompile Include="vec3.cpp" />
-    <ClCompile Include="vec4.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Billboard.h" />
-    <ClInclude Include="cameraclass.h" />
-    <ClInclude Include="FPSCamara.h" />
-    <ClInclude Include="GamepadRR.h" />
-    <ClInclude Include="Geometrias.h" />
-    <ClInclude Include="graphicsclass.h" />
-    <ClInclude Include="Imagenes.h" />
-    <ClInclude Include="InputGerente.h" />
-    <ClInclude Include="lightclass.h" />
-    <ClInclude Include="lightshaderclass.h" />
-    <ClInclude Include="mat4.h" />
-    <ClInclude Include="Modelos.h" />
-    <ClInclude Include="openglclass.h" />
-    <ClInclude Include="Quaternion.h" />
-    <ClInclude Include="SkyDome.h" />
-    <ClInclude Include="Terreno.h" />
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="vec2.h" />
-    <ClInclude Include="vec3.h" />
-    <ClInclude Include="vec4.h" />
-    <ClInclude Include="VectorRR.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="light.ps" />
-    <None Include="light.vs" />
-    <None Include="Modelo.ps" />
-    <None Include="Sky.ps" />
-    <None Include="Sky.vs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Bill.vs" />
-    <Text Include="Bill.ps" />
-    <Text Include="Modelo.vs" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -13,148 +13,127 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Archivos de encabezado\matematicas">
-      <UniqueIdentifier>{30e820ee-6330-47c0-98cc-64cbd85a5c3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\matematicas">
-      <UniqueIdentifier>{e64d5881-670e-4866-8e9b-056d6ee5894a}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\api\openglclass.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="cameraclass.cpp">
+    <ClCompile Include="src\graficos\camera\cameraclass.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="graphicsclass.cpp">
+    <ClCompile Include="src\graficos\camera\FPSCamara.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="lightclass.cpp">
+    <ClCompile Include="src\graficos\renderables\cubo.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="lightshaderclass.cpp">
+    <ClCompile Include="src\graficos\graphicsclass.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="openglclass.cpp">
+    <ClCompile Include="src\graficos\lightclass.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
+    <ClCompile Include="src\graficos\lightshaderclass.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Quaternion.cpp">
-      <Filter>Archivos de origen\matematicas</Filter>
-    </ClCompile>
-    <ClCompile Include="mat4.cpp">
-      <Filter>Archivos de origen\matematicas</Filter>
-    </ClCompile>
-    <ClCompile Include="vec4.cpp">
-      <Filter>Archivos de origen\matematicas</Filter>
-    </ClCompile>
-    <ClCompile Include="vec3.cpp">
-      <Filter>Archivos de origen\matematicas</Filter>
-    </ClCompile>
-    <ClCompile Include="vec2.cpp">
-      <Filter>Archivos de origen\matematicas</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSCamara.cpp">
+    <ClCompile Include="src\matematicas\mat4.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="InputGerente.cpp">
+    <ClCompile Include="src\matematicas\Quaternion.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\matematicas\vec2.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\matematicas\vec3.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\matematicas\vec4.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\InputGerente.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\Timer.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cameraclass.h">
+    <ClInclude Include="src\api\openglclass.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="openglclass.h">
+    <ClInclude Include="src\graficos\camera\cameraclass.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="lightshaderclass.h">
+    <ClInclude Include="src\graficos\camera\FPSCamara.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="lightclass.h">
+    <ClInclude Include="src\graficos\renderables\Billboard.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="graphicsclass.h">
+    <ClInclude Include="src\graficos\renderables\cubo.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Terreno.h">
+    <ClInclude Include="src\graficos\renderables\Geometrias.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Geometrias.h">
+    <ClInclude Include="src\graficos\renderables\Modelos.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="VectorRR.h">
+    <ClInclude Include="src\graficos\renderables\SkyDome.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Imagenes.h">
+    <ClInclude Include="src\graficos\renderables\Terreno.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="SkyDome.h">
+    <ClInclude Include="src\graficos\graphicsclass.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Billboard.h">
+    <ClInclude Include="src\graficos\Imagenes.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="GamepadRR.h">
+    <ClInclude Include="src\graficos\lightclass.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Modelos.h">
+    <ClInclude Include="src\graficos\lightshaderclass.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
+    <ClInclude Include="src\matematicas\mat4.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="mat4.h">
-      <Filter>Archivos de encabezado\matematicas</Filter>
-    </ClInclude>
-    <ClInclude Include="Quaternion.h">
-      <Filter>Archivos de encabezado\matematicas</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSCamara.h">
+    <ClInclude Include="src\matematicas\Quaternion.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="vec4.h">
-      <Filter>Archivos de encabezado\matematicas</Filter>
+    <ClInclude Include="src\matematicas\vec2.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="vec3.h">
-      <Filter>Archivos de encabezado\matematicas</Filter>
+    <ClInclude Include="src\matematicas\vec3.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="vec2.h">
-      <Filter>Archivos de encabezado\matematicas</Filter>
+    <ClInclude Include="src\matematicas\vec4.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="InputGerente.h">
+    <ClInclude Include="src\matematicas\VectorRR.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\GamepadRR.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\InputGerente.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\Timer.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graficos\renderables\Renderable.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="light.ps">
-      <Filter>Archivos de origen</Filter>
-    </None>
-    <None Include="light.vs">
-      <Filter>Archivos de origen</Filter>
-    </None>
-    <None Include="Sky.vs">
-      <Filter>Archivos de origen</Filter>
-    </None>
-    <None Include="Sky.ps">
-      <Filter>Archivos de origen</Filter>
-    </None>
-    <None Include="Modelo.ps">
-      <Filter>Archivos de origen</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Bill.vs">
-      <Filter>Archivos de origen</Filter>
-    </Text>
-    <Text Include="Bill.ps">
-      <Filter>Archivos de origen</Filter>
-    </Text>
-    <Text Include="Modelo.vs">
-      <Filter>Archivos de origen</Filter>
-    </Text>
+    <None Include="shaders\cubo.vs" />
+    <None Include="shaders\cubo.ps" />
   </ItemGroup>
 </Project>
