@@ -101,9 +101,9 @@ public:
 	OpenGLClass(const OpenGLClass&);
 	~OpenGLClass();
 
-	bool InitializeExtensions(HWND);
-	bool InitializeOpenGL(HWND, int, int, float, float, bool);
-	void Shutdown(HWND);
+	bool InitializeExtensions();
+	bool InitializeOpenGL();
+	void Shutdown();
 
 	void BeginScene(float, float, float, float);
 	void EndScene();

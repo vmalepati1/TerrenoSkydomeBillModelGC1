@@ -49,22 +49,6 @@ private:
 	friend void MouseButtonCallback(InputGerente* inputManager, int32_t button, int32_t x, int32_t y);
 };
 
-class Input
-{
-private:
-	friend class InputGerente;
-private:
-	static InputGerente* s_InputManager;
-public:
-	inline static bool IsKeyPressed(uint32_t keycode) { return s_InputManager->IsKeyPressed(keycode); }
-	inline static bool IsMouseButtonPressed(uint32_t button) { return s_InputManager->IsMouseButtonPressed(button); }
-	inline static bool IsMouseButtonClicked(uint32_t button) { return s_InputManager->IsMouseButtonClicked(button); }
-
-	inline static const vec2& GetMousePosition() { return s_InputManager->GetMousePosition(); }
-
-	inline static InputGerente* GetInputManager() { return s_InputManager; }
-};
-
 #define MOUSE_LEFT	  0x00
 #define MOUSE_MIDDLE	  0x01
 #define MOUSE_RIGHT    0x02

@@ -32,6 +32,7 @@
     <ClCompile Include="src\matematicas\vec2.cpp" />
     <ClCompile Include="src\matematicas\vec3.cpp" />
     <ClCompile Include="src\matematicas\vec4.cpp" />
+    <ClCompile Include="src\platform\Application.cpp" />
     <ClCompile Include="src\platform\InputGerente.cpp" />
     <ClCompile Include="src\platform\Timer.cpp" />
   </ItemGroup>
@@ -43,19 +44,15 @@
     <ClInclude Include="src\graficos\Imagenes.h" />
     <ClInclude Include="src\graficos\lightclass.h" />
     <ClInclude Include="src\graficos\lightshaderclass.h" />
-    <ClInclude Include="src\graficos\renderables\Billboard.h" />
     <ClInclude Include="src\graficos\renderables\cubo.h" />
-    <ClInclude Include="src\graficos\renderables\Geometrias.h" />
-    <ClInclude Include="src\graficos\renderables\Modelos.h" />
     <ClInclude Include="src\graficos\renderables\Renderable.h" />
-    <ClInclude Include="src\graficos\renderables\SkyDome.h" />
-    <ClInclude Include="src\graficos\renderables\Terreno.h" />
     <ClInclude Include="src\matematicas\mat4.h" />
     <ClInclude Include="src\matematicas\Quaternion.h" />
     <ClInclude Include="src\matematicas\vec2.h" />
     <ClInclude Include="src\matematicas\vec3.h" />
     <ClInclude Include="src\matematicas\vec4.h" />
     <ClInclude Include="src\matematicas\VectorRR.h" />
+    <ClInclude Include="src\platform\Application.h" />
     <ClInclude Include="src\platform\GamepadRR.h" />
     <ClInclude Include="src\platform\InputGerente.h" />
     <ClInclude Include="src\platform\Timer.h" />

@@ -1,5 +1,5 @@
 #include "FPSCamara.h"
-#include "platform/InputGerente.h"
+#include "platform/Application.h"
 
 #include <math.h>
 
@@ -9,17 +9,14 @@
 #    define M_PI 3.14159265358979323846
 #endif
 
-extern int screenWidth;
-extern int screenHeight;
-
 FPSCamara::FPSCamara(const mat4& projectionMatrix)
 	: m_ProjectionMatrix(projectionMatrix), m_MouseSensitivity(0.002f), m_Speed(0.4f), m_SprintSpeed(m_Speed * 4.0f), m_MouseWasGrabbed(false)
 {
 
 	m_Position = vec3(0.0f, 25.0f, -25.0f);
 	m_Rotation = vec3(90.0f, 0.0f, 0.0f);
-	m_Yaw = 2.4f;
-	m_Pitch = 0.7f;
+	m_Yaw = 0.0f;
+	m_Pitch = 0.0f;
 }
 
 FPSCamara::~FPSCamara() {
@@ -28,25 +25,28 @@ FPSCamara::~FPSCamara() {
 
 void FPSCamara::Focus()
 {
-	Input::GetInputManager()->SetMouseCursor(NO_CURSOR);
+	Application::GetApplication().GetInputManager()->SetMouseCursor(NO_CURSOR);
 }
 
 void FPSCamara::Update()
 {
-	vec2 windowCenter = vec2((float)screenWidth / 2, (float)(int32_t)screenHeight / 2);
+	InputGerente* inputManager = Application::GetApplication().GetInputManager();
 
-	if (Input::IsMouseButtonPressed(MOUSE_RIGHT))
+	vec2 windowCenter = vec2((float)Application::GetApplication().GetWindowWidth() / 2, 
+		(float)(int32_t)Application::GetApplication().GetWindowHeight() / 2);
+
+	if (Application::GetApplication().GetInputManager()->IsMouseButtonPressed(MOUSE_RIGHT))
 	{
-		if (!Input::GetInputManager()->IsMouseGrabbed())
+		if (!inputManager->IsMouseGrabbed())
 		{
-			Input::GetInputManager()->SetMouseGrabbed(true);
-			Input::GetInputManager()->SetMouseCursor(NO_CURSOR);
+			Application::GetApplication().GetInputManager()->SetMouseGrabbed(true);
+			Application::GetApplication().GetInputManager()->SetMouseCursor(NO_CURSOR);
 		}
 	}
 
-	if (Input::GetInputManager()->IsMouseGrabbed())
+	if (inputManager->IsMouseGrabbed())
 	{
-		vec2 mouse = Input::GetInputManager()->GetMousePosition();
+		vec2 mouse = inputManager->GetMousePosition();
 		mouse.x -= windowCenter.x;
 		mouse.y -= windowCenter.y;
 		if (m_MouseWasGrabbed)
@@ -55,7 +55,7 @@ void FPSCamara::Update()
 			m_Pitch += mouse.y * m_MouseSensitivity;
 		}
 		m_MouseWasGrabbed = true;
-		Input::GetInputManager()->SetMousePosition(windowCenter);
+		inputManager->SetMousePosition(windowCenter);
 
 		Quaternion orientation = GetOrientation();
 		m_Rotation = orientation.ToEulerAngles() * (180.0f / M_PI);
@@ -63,20 +63,20 @@ void FPSCamara::Update()
 		vec3 forward = GetForwardDirection(orientation);
 		vec3 right = GetRightDirection(orientation);
 		vec3 up = vec3::YAxis();
-		float speed = Input::IsKeyPressed(KEY_SHIFT) ? m_SprintSpeed : m_Speed;
-		if (Input::IsKeyPressed(KEY_W))
+		float speed = inputManager->IsKeyPressed(KEY_SHIFT) ? m_SprintSpeed : m_Speed;
+		if (inputManager->IsKeyPressed(KEY_W))
 			m_Position += forward * speed;
-		else if (Input::IsKeyPressed(KEY_S))
+		else if (inputManager->IsKeyPressed(KEY_S))
 			m_Position -= forward * speed;
 
-		if (Input::IsKeyPressed(KEY_A))
+		if (inputManager->IsKeyPressed(KEY_A))
 			m_Position -= right * speed;
-		else if (Input::IsKeyPressed(KEY_D))
+		else if (inputManager->IsKeyPressed(KEY_D))
 			m_Position += right * speed;
 
-		if (Input::IsKeyPressed(KEY_SPACE))
+		if (inputManager->IsKeyPressed(KEY_SPACE))
 			m_Position += up * speed;
-		if (Input::IsKeyPressed(KEY_CONTROL))
+		if (inputManager->IsKeyPressed(KEY_CONTROL))
 			m_Position -= up * speed;
 
 		mat4 rotation = mat4::Rotate(orientation.Conjugate());
@@ -84,10 +84,10 @@ void FPSCamara::Update()
 		m_ViewMatrix = rotation * translation;
 	}
 
-	if (Input::IsKeyPressed(KEY_ESCAPE))
+	if (inputManager->IsKeyPressed(KEY_ESCAPE))
 	{
-		Input::GetInputManager()->SetMouseGrabbed(false);
-		Input::GetInputManager()->SetMouseCursor(1);
+		inputManager->SetMouseGrabbed(false);
+		inputManager->SetMouseCursor(1);
 		m_MouseWasGrabbed = false;
 	}
 }

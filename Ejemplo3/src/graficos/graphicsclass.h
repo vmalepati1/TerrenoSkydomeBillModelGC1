@@ -12,21 +12,14 @@
 #include "camera/cameraclass.h"
 #include "lightshaderclass.h"
 #include "lightclass.h"
+/*
 #include "renderables/Terreno.h"
 #include "renderables/SkyDome.h"
 #include "renderables/Billboard.h"
 #include "renderables/Modelos.h"
+*/
 #include "camera/FPSCamara.h"
 #include "graficos/renderables/cubo.h"
-
-
-/////////////
-// GLOBALS //
-/////////////
-const bool FULL_SCREEN = false;
-const bool VSYNC_ENABLED = true;
-const float SCREEN_DEPTH = 1000.0f;
-const float SCREEN_NEAR = 0.1f;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,17 +32,12 @@ public:
 	GraphicsClass(const GraphicsClass&);
 	~GraphicsClass();
 
-	bool Initialize(OpenGLClass*, HWND);
+	bool Initialize();
 	void Shutdown();
-	bool Frame();
-	float angx, angy, angz, vel;
-
+	void Render();
 private:
-	bool Render(float);
-
-private:
-	OpenGLClass* m_OpenGL;
 	FPSCamara* m_Camera;	
+	/*
 	Terreno* terreno;
 	SkyDome* sky;
 	Billboard* bill;
@@ -59,6 +47,7 @@ private:
 	LightShaderClass* m_BillShader;
 	LightShaderClass* m_ModeloShader;
 	LightClass* m_Light;
+	*/
 	Cubo* m_Cubo;
 };
 

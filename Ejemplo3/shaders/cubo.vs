@@ -7,8 +7,8 @@ layout (location = 3) in vec3 inputTangent;
 layout (location = 4) in vec3 inputBinormal;
 
 uniform mat4 modelMatrix;
-uniform mat4 viewMatrix;
-uniform mat4 projectionMatrix;
+uniform mat4 viewMatrix = mat4(1.0);
+uniform mat4 projectionMatrix = mat4(1.0);
 
 void main() {
 	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(inputPosition, 1.0);

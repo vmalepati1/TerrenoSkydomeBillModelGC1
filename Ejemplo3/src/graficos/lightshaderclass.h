@@ -15,7 +15,6 @@ using namespace std;
 ///////////////////////
 // MY CLASS INCLUDES //
 ///////////////////////
-#include "api/openglclass.h"
 #include "matematicas/vec2.h"
 #include "matematicas/vec3.h"
 #include "matematicas/vec4.h"
@@ -32,22 +31,22 @@ public:
 	LightShaderClass(const LightShaderClass&);
 	~LightShaderClass();
 
-	bool Initialize(OpenGLClass*, HWND);
-	void Shutdown(OpenGLClass*);
-	void Bind(OpenGLClass*);	
-	void Unbind(OpenGLClass*);
-	bool PonMatriz4x4(OpenGLClass*, const string &nombre, const mat4 &matrix);
-	bool Pon1Entero(OpenGLClass* OpenGL, const string& nombre, int);
-	bool PonVec2(OpenGLClass* OpenGL, const string &nombre, const vec2 &vector);
-	bool PonVec3(OpenGLClass* OpenGL, const string &nombre, const vec3 &vector);
-	bool PonVec4(OpenGLClass* OpenGL, const string &nombre, const vec4 &vector);
+	bool Initialize();
+	void Shutdown();
+	void Bind();	
+	void Unbind();
+	bool PonMatriz4x4(const string &nombre, const mat4 &matrix);
+	bool Pon1Entero(const string& nombre, int);
+	bool PonVec2(const string &nombre, const vec2 &vector);
+	bool PonVec3(const string &nombre, const vec3 &vector);
+	bool PonVec4(const string &nombre, const vec4 &vector);
 
 private:
-	bool InitializeShader(const char*, const char*, OpenGLClass*, HWND);
+	bool InitializeShader(const char*, const char*);
 	char* LoadShaderSourceFile(const char*);
-	void OutputShaderErrorMessage(OpenGLClass*, HWND, unsigned int, const char*);
-	void OutputLinkerErrorMessage(OpenGLClass*, HWND, unsigned int);
-	void ShutdownShader(OpenGLClass*);
+	void OutputShaderErrorMessage(unsigned int, const char*);
+	void OutputLinkerErrorMessage(unsigned int);
+	void ShutdownShader();
 
 private:
 	unsigned int m_vertexShader;

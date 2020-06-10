@@ -1,11 +1,8 @@
 #include "InputGerente.h"
+#include "platform/Application.h"
 
 #include <Windows.h>
 #include <Windowsx.h>
-
-InputGerente* Input::s_InputManager = nullptr;
-
-extern HWND m_hwnd;
 
 InputGerente::InputGerente()
 {
@@ -13,9 +10,6 @@ InputGerente::InputGerente()
 	ClearMouseButtons();
 
 	m_MouseGrabbed = true;
-
-	Input::s_InputManager = this;
-
 	// m_KeyState = spnew bool[MAX_KEYS];
 	// m_LastKeyState = spnew bool[MAX_KEYS];
 }
@@ -96,7 +90,7 @@ void InputGerente::PlatformUpdate()
 	// Mouse Events
 	POINT mouse;
 	GetCursorPos(&mouse);
-	ScreenToClient(m_hwnd, &mouse);
+	ScreenToClient(Application::GetApplication().GetHWnd(), &mouse);
 
 	vec2 mousePos = vec2((float)mouse.x, (float)mouse.y);
 	if (mousePos != m_MousePosition)
@@ -108,7 +102,7 @@ void InputGerente::PlatformUpdate()
 void InputGerente::SetMousePosition(const vec2& position)
 {
 	POINT pt = { (LONG)position.x, (LONG)position.y };
-	ClientToScreen(m_hwnd, &pt);
+	ClientToScreen(Application::GetApplication().GetHWnd(), &pt);
 	SetCursorPos(pt.x, pt.y);
 }
 
@@ -158,7 +152,7 @@ void MouseButtonCallback(InputGerente* inputManager, int32_t button, int32_t x, 
 	switch (button)
 	{
 	case WM_LBUTTONDOWN:
-		SetCapture(m_hwnd);
+		SetCapture(Application::GetApplication().GetHWnd());
 		button = MOUSE_LEFT;
 		down = true;
 		break;
@@ -168,7 +162,7 @@ void MouseButtonCallback(InputGerente* inputManager, int32_t button, int32_t x, 
 		down = false;
 		break;
 	case WM_RBUTTONDOWN:
-		SetCapture(m_hwnd);
+		SetCapture(Application::GetApplication().GetHWnd());
 		button = MOUSE_RIGHT;
 		down = true;
 		break;
@@ -178,7 +172,7 @@ void MouseButtonCallback(InputGerente* inputManager, int32_t button, int32_t x, 
 		down = false;
 		break;
 	case WM_MBUTTONDOWN:
-		SetCapture(m_hwnd);
+		SetCapture(Application::GetApplication().GetHWnd());
 		button = MOUSE_MIDDLE;
 		down = true;
 		break;

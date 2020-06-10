@@ -4,7 +4,7 @@
 #include "matematicas/VectorRR.h"
 #include "Geometrias.h"
 #include <vector>
-
+#include "platform/Application.h"
 
 class Modelos : public Primitivos
 {
@@ -20,18 +20,16 @@ public:
 	int canti, cantv;
 	//variables locales de la clase para contener los stacks y los slices de la esfera
 	int st, sl;
-	OpenGLClass* sale;
 	//el nombre numerico de la textura en cuestion, por lo pronto una	
 	unsigned int m_vertexArrayId, m_vertexBufferId, m_indexBufferId;
 	unsigned int m_textureID;
 
-	Modelos(HWND hWnd, OpenGLClass* OpenGL, const wchar_t textura[], float escala, float x, float z)
+	Modelos(const wchar_t textura[], float escala, float x, float z)
 	{
 		this->escala = escala;
 		this->x = x;
 		this->y = y;
 		this->z = z;
-		sale = OpenGL;
 		Up.X = 0;
 		Up.Y = 1;
 		Up.Z = 0;
@@ -43,7 +41,7 @@ public:
 
 		Carga(textura);
 		// Set the unique texture unit in which to store the data.
-		OpenGL->glActiveTexture(GL_TEXTURE0 + 4);
+		Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE0 + 4);
 
 		// Generate an ID for the texture.
 		glGenTextures(1, &m_textureID);
@@ -63,57 +61,57 @@ public:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 		// Generate mipmaps for the texture.
-		OpenGL->glGenerateMipmap(GL_TEXTURE_2D);
+		Application::GetApplication().GetOpenGL()->glGenerateMipmap(GL_TEXTURE_2D);
 
 		Descarga();		
 
 		modeLoad();
 		// Allocate an OpenGL vertex array object.
-		OpenGL->glGenVertexArrays(1, &m_vertexArrayId);
+		Application::GetApplication().GetOpenGL()->glGenVertexArrays(1, &m_vertexArrayId);
 
 		// Bind the vertex array object to store all the buffers and vertex attributes we create here.
-		OpenGL->glBindVertexArray(m_vertexArrayId);
+		Application::GetApplication().GetOpenGL()->glBindVertexArray(m_vertexArrayId);
 
 		// Generate an ID for the vertex buffer.
-		OpenGL->glGenBuffers(1, &m_vertexBufferId);
+		Application::GetApplication().GetOpenGL()->glGenBuffers(1, &m_vertexBufferId);
 
 		// Bind the vertex buffer and load the vertex (position, texture, and normal) data into the vertex buffer.
-		OpenGL->glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
-		OpenGL->glBufferData(GL_ARRAY_BUFFER, cantv * sizeof(Vertices), modelo.maya, GL_STATIC_DRAW);
+		Application::GetApplication().GetOpenGL()->glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
+		Application::GetApplication().GetOpenGL()->glBufferData(GL_ARRAY_BUFFER, cantv * sizeof(Vertices), modelo.maya, GL_STATIC_DRAW);
 
 		// Enable the three vertex array attributes.
-		OpenGL->glEnableVertexAttribArray(0);  // Vertex position.
-		OpenGL->glEnableVertexAttribArray(1);  // Normals.
-		OpenGL->glEnableVertexAttribArray(2);  // Texture coordinates.
-		OpenGL->glEnableVertexAttribArray(3);  // Tangent.
-		OpenGL->glEnableVertexAttribArray(4);  // BiNormals.
+		Application::GetApplication().GetOpenGL()->glEnableVertexAttribArray(0);  // Vertex position.
+		Application::GetApplication().GetOpenGL()->glEnableVertexAttribArray(1);  // Normals.
+		Application::GetApplication().GetOpenGL()->glEnableVertexAttribArray(2);  // Texture coordinates.
+		Application::GetApplication().GetOpenGL()->glEnableVertexAttribArray(3);  // Tangent.
+		Application::GetApplication().GetOpenGL()->glEnableVertexAttribArray(4);  // BiNormals.
 
 		// Specify the location and format of the position portion of the vertex buffer.
-		OpenGL->glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
-		OpenGL->glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(Vertices), 0);
+		Application::GetApplication().GetOpenGL()->glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
+		Application::GetApplication().GetOpenGL()->glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(Vertices), 0);
 
 		// Specify the location and format of the normal vector portion of the vertex buffer.
-		OpenGL->glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
-		OpenGL->glVertexAttribPointer(1, 3, GL_FLOAT, false, sizeof(Vertices), (unsigned char*)NULL + (3 * sizeof(float)));
+		Application::GetApplication().GetOpenGL()->glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
+		Application::GetApplication().GetOpenGL()->glVertexAttribPointer(1, 3, GL_FLOAT, false, sizeof(Vertices), (unsigned char*)NULL + (3 * sizeof(float)));
 
 		// Specify the location and format of the texture coordinate portion of the vertex buffer.
-		OpenGL->glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
-		OpenGL->glVertexAttribPointer(2, 2, GL_FLOAT, false, sizeof(Vertices), (unsigned char*)NULL + (6 * sizeof(float)));
+		Application::GetApplication().GetOpenGL()->glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
+		Application::GetApplication().GetOpenGL()->glVertexAttribPointer(2, 2, GL_FLOAT, false, sizeof(Vertices), (unsigned char*)NULL + (6 * sizeof(float)));
 
 		// Specify the location and format of the texture coordinate portion of the vertex buffer.
-		OpenGL->glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
-		OpenGL->glVertexAttribPointer(3, 3, GL_FLOAT, false, sizeof(Vertices), (unsigned char*)NULL + (8 * sizeof(float)));
+		Application::GetApplication().GetOpenGL()->glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
+		Application::GetApplication().GetOpenGL()->glVertexAttribPointer(3, 3, GL_FLOAT, false, sizeof(Vertices), (unsigned char*)NULL + (8 * sizeof(float)));
 
 		// Specify the location and format of the texture coordinate portion of the vertex buffer.
-		OpenGL->glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
-		OpenGL->glVertexAttribPointer(4, 3, GL_FLOAT, false, sizeof(Vertices), (unsigned char*)NULL + (11 * sizeof(float)));
+		Application::GetApplication().GetOpenGL()->glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
+		Application::GetApplication().GetOpenGL()->glVertexAttribPointer(4, 3, GL_FLOAT, false, sizeof(Vertices), (unsigned char*)NULL + (11 * sizeof(float)));
 
 		// Generate an ID for the index buffer.
-		OpenGL->glGenBuffers(1, &m_indexBufferId);
+		Application::GetApplication().GetOpenGL()->glGenBuffers(1, &m_indexBufferId);
 
 		// Bind the index buffer and load the index data into it.
-		OpenGL->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBufferId);
-		OpenGL->glBufferData(GL_ELEMENT_ARRAY_BUFFER, canti * sizeof(unsigned int),
+		Application::GetApplication().GetOpenGL()->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBufferId);
+		Application::GetApplication().GetOpenGL()->glBufferData(GL_ELEMENT_ARRAY_BUFFER, canti * sizeof(unsigned int),
 			modelo.indices, GL_STATIC_DRAW);
 
 
@@ -123,22 +121,22 @@ public:
 	{
 	
 		glDeleteTextures(1, &ModTextura);
-		Shutdown(sale);
+		Shutdown();
 	}
 
-	void Render(OpenGLClass* OpenGL)
+	void Render()
 	{
 		//habilitamos el culling para reducir tiempo de procesamiento de las texturas
 		//las texturas se analizan pixel a pixel para determinar que se imprimen o no
 		//por lo que aunque no la veamos nos costo, por eso la eliminamos.	
-		RenderBuffers(OpenGL);
+		RenderBuffers();
 		return;
 	}
 
-	void RenderBuffers(OpenGLClass* OpenGL)
+	void RenderBuffers()
 	{
 		// Bind the vertex array object that stored all the information about the vertex and index buffers.
-		OpenGL->glBindVertexArray(m_vertexArrayId);
+		Application::GetApplication().GetOpenGL()->glBindVertexArray(m_vertexArrayId);
 
 		// Render the vertex buffer using the index buffer.
 		glDrawElements(GL_TRIANGLES, canti, GL_UNSIGNED_INT, 0);
@@ -146,32 +144,31 @@ public:
 		return;
 	}
 
-	void Shutdown(OpenGLClass* OpenGL)
+	void Shutdown()
 	{
-
 		// Release the vertex and index buffers.
-		ShutdownBuffers(OpenGL);
+		ShutdownBuffers();
 
 		return;
 	}
 
-	void ShutdownBuffers(OpenGLClass* OpenGL)
+	void ShutdownBuffers()
 	{
 		// Disable the two vertex array attributes.
-		OpenGL->glDisableVertexAttribArray(0);
-		OpenGL->glDisableVertexAttribArray(1);
+		Application::GetApplication().GetOpenGL()->glDisableVertexAttribArray(0);
+		Application::GetApplication().GetOpenGL()->glDisableVertexAttribArray(1);
 
 		// Release the vertex buffer.
-		OpenGL->glBindBuffer(GL_ARRAY_BUFFER, 0);
-		OpenGL->glDeleteBuffers(1, &m_vertexBufferId);
+		Application::GetApplication().GetOpenGL()->glBindBuffer(GL_ARRAY_BUFFER, 0);
+		Application::GetApplication().GetOpenGL()->glDeleteBuffers(1, &m_vertexBufferId);
 
 		// Release the index buffer.
-		OpenGL->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		OpenGL->glDeleteBuffers(1, &m_indexBufferId);
+		Application::GetApplication().GetOpenGL()->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		Application::GetApplication().GetOpenGL()->glDeleteBuffers(1, &m_indexBufferId);
 
 		// Release the vertex array object.
-		OpenGL->glBindVertexArray(0);
-		OpenGL->glDeleteVertexArrays(1, &m_vertexArrayId);
+		Application::GetApplication().GetOpenGL()->glBindVertexArray(0);
+		Application::GetApplication().GetOpenGL()->glDeleteVertexArrays(1, &m_vertexArrayId);
 
 		return;
 	}

@@ -2,7 +2,7 @@
 // Filename: openglclass.cpp
 ////////////////////////////////////////////////////////////////////////////////
 #include "openglclass.h"
-
+#include "platform/Application.h"
 
 OpenGLClass::OpenGLClass()
 {
@@ -21,7 +21,7 @@ OpenGLClass::~OpenGLClass()
 }
 
 
-bool OpenGLClass::InitializeExtensions(HWND hwnd)
+bool OpenGLClass::InitializeExtensions()
 {
 	HDC deviceContext;
 	PIXELFORMATDESCRIPTOR pixelFormat;
@@ -31,7 +31,7 @@ bool OpenGLClass::InitializeExtensions(HWND hwnd)
 
 
 	// Get the device context for this window.
-	deviceContext = GetDC(hwnd);
+	deviceContext = GetDC(Application::GetApplication().GetHWnd());
 	if(!deviceContext)
 	{
 		return false;
@@ -71,14 +71,14 @@ bool OpenGLClass::InitializeExtensions(HWND hwnd)
 	renderContext = NULL;
 
 	// Release the device context for this window.
-	ReleaseDC(hwnd, deviceContext);
+	ReleaseDC(Application::GetApplication().GetHWnd(), deviceContext);
 	deviceContext = 0;
 
 	return true;
 }
 
 
-bool OpenGLClass::InitializeOpenGL(HWND hwnd, int screenWidth, int screenHeight, float screenDepth, float screenNear, bool vsync)
+bool OpenGLClass::InitializeOpenGL()
 {
 	int attributeListInt[19];
 	int pixelFormat[1];
@@ -89,9 +89,8 @@ bool OpenGLClass::InitializeOpenGL(HWND hwnd, int screenWidth, int screenHeight,
 	float fieldOfView, screenAspect;
 	char *vendorString, *rendererString;
 
-
 	// Get the device context for this window.
-	m_deviceContext = GetDC(hwnd);
+	m_deviceContext = GetDC(Application::GetApplication().GetHWnd());
 	if(!m_deviceContext)
 	{
 		return false;
@@ -191,10 +190,10 @@ bool OpenGLClass::InitializeOpenGL(HWND hwnd, int screenWidth, int screenHeight,
 
 	// Set the field of view and screen aspect ratio.
 	fieldOfView = 3.14159265358979323846f / 4.0f;
-	screenAspect = (float)screenWidth / (float)screenHeight;
+	screenAspect = (float)Application::GetApplication().GetWindowWidth() / (float)Application::GetApplication().GetWindowHeight();
 
 	// Build the perspective projection matrix.
-	BuildPerspectiveFovLHMatrix(m_projectionMatrix, fieldOfView, screenAspect, screenNear, screenDepth);
+	BuildPerspectiveFovLHMatrix(m_projectionMatrix, fieldOfView, screenAspect, Application::GetApplication().GetWindowNear(), Application::GetApplication().GetWindowFar());
 
 	// Get the name of the video card.
 	vendorString = (char*)glGetString(GL_VENDOR);
@@ -206,7 +205,7 @@ bool OpenGLClass::InitializeOpenGL(HWND hwnd, int screenWidth, int screenHeight,
 	strcat_s(m_videoCardDescription, rendererString);
 
 	// Turn on or off the vertical sync depending on the input bool value.
-	if(vsync)
+	if(Application::GetApplication().IsWindowVsync())
 	{
 		result = wglSwapIntervalEXT(1);
 	}
@@ -225,7 +224,7 @@ bool OpenGLClass::InitializeOpenGL(HWND hwnd, int screenWidth, int screenHeight,
 }
 
 
-void OpenGLClass::Shutdown(HWND hwnd)
+void OpenGLClass::Shutdown()
 {
 	// Release the rendering context.
 	if(m_renderingContext)
@@ -238,7 +237,7 @@ void OpenGLClass::Shutdown(HWND hwnd)
 	// Release the device context.
 	if(m_deviceContext)
 	{
-		ReleaseDC(hwnd, m_deviceContext);
+		ReleaseDC(Application::GetApplication().GetHWnd(), m_deviceContext);
 		m_deviceContext = 0;
 	}
 

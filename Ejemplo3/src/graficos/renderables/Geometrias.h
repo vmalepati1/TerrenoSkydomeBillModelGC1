@@ -4,6 +4,7 @@
 #include <math.h>
 #include "matematicas/VectorRR.h"
 #include "graficos/Imagenes.h"
+#include "platform/Application.h"
 
 //estructura para manejar primitivos con posicion, normal y uv's
 struct Vertices {
