@@ -1,5 +1,5 @@
-#ifndef _billb
-#define _billb
+#pragma once
+
 #include "graficos/Imagenes.h"
 #include "matematicas/vec3.h"
 #include "Geometrias.h"
@@ -181,5 +181,3 @@ public:
 	}
 
 };
-
-#endif 

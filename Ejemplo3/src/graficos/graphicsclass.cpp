@@ -4,6 +4,7 @@
 #include "graphicsclass.h"
 
 #include "platform/Application.h"
+#include "graficos/renderables/Water.h"
 
 #include <iostream>
 
@@ -41,14 +42,29 @@ bool GraphicsClass::Initialize()
 		return false;
 	}
 
-	m_Camera->m_Position = vec3(0.0, 0.0, 10.0);
+	m_Camera->m_Position = vec3(0.0, 50, 40.0);
 	m_Camera->Focus();
 
-	m_Cubo = new Cubo(1.0);
+	m_Light = new LightClass();
+	m_Light->SetDiffuseColor(vec4(1.0f));
+	m_Light->SetDirection(vec3(-5.0f, 0.5f, -1.0f));
+
+	const float TILE_SIZE = 25;
+
+	m_Cubo = new Cubo(1.0, mat4::Translate(vec3(0, 45, -45)) * mat4::Scale(vec3(10, 10, 10)), m_Light);
+	terreno = new Terreno(L"res/texturas/terreno.jpg", L"res/texturas/Zacatito.jpg", L"res/texturas/ZacatitoNorm.jpg",
+		(float)400, (float)400, 0, 1, mat4::Translate(vec3(0, 20, 0)), m_Light);
+	topDome = new SkyDome(32, 32, 256, L"res/texturas/earth.jpg", mat4::Translate(vec3(0, 35, 0)), m_Light);
+	bottomDome = new SkyDome(32, 32, 256, L"res/texturas/earth.jpg", mat4::Translate(vec3(0, 35, 0)) , m_Light);
+	waterAltura = 35;
+	water = new Water(mat4::Translate(vec3(7, waterAltura, -3)) * mat4::Scale(vec3(TILE_SIZE, 0, TILE_SIZE)), m_Light);
+
+	buffers = new WaterFrameBuffers();
+	refractionTex = new DebugTexture(buffers->getRefractionTexture(), mat4::Translate(vec3(5, 5, 0)) * mat4::Scale(vec3(16.0/2.5, 9.0/2.5, 0)));
+	reflectionTex = new DebugTexture(buffers->getReflectionTexture(), mat4::Translate(vec3(-10, 5, 0)) * mat4::Scale(vec3(16.0 / 2.5, 9.0 / 2.5, 0)));
 
 	/*
-	terreno = new Terreno(L"res/texturas/terreno.jpg", L"res/texturas/Zacatito.jpg", L"res/texturas/ZacatitoNorm.jpg",
-		(float)400, (float)400, 0, 1);
+
 
 	// Create the light shader object.
 	m_LightShader = new LightShaderClass("shaders/light.vs", "shaders/light.ps");
@@ -172,16 +188,43 @@ void GraphicsClass::Shutdown()
 	return;
 }
 
+void GraphicsClass::RenderScene(const vec4& clippingPlane) {
+	topDome->Render(m_Camera);
+	terreno->RenderClipped(m_Camera, clippingPlane);
+	m_Cubo->RenderClipped(m_Camera, clippingPlane);
+}
+
 void GraphicsClass::Render()
 {
 	glViewport(0, 0, Application::GetApplication().GetWindowWidth(), Application::GetApplication().GetWindowHeight());
 
 	// Clear the buffers to begin the scene.
-	Application::GetApplication().GetOpenGL()->BeginScene(0.1f, 0.1f, 0.1f, 1.0f);
+	Application::GetApplication().GetOpenGL()->BeginScene(0.976, 0.953, 1.0, 1.0f);
 
 	m_Camera->Update();
 
-	m_Cubo->Render(m_Camera);
+	glEnable(GL_CLIP_DISTANCE0);
+
+	buffers->bindReflectionFrameBuffer();
+	float distance = 2 * (m_Camera->m_Position.y - waterAltura);
+	m_Camera->m_Position.y -= distance;
+	m_Camera->m_Pitch = -m_Camera->m_Pitch;
+	m_Camera->UpdateViewMatrix();
+	RenderScene(vec4(0, 1, 0, -waterAltura));
+	m_Camera->m_Position.y += distance;
+	m_Camera->m_Pitch = -m_Camera->m_Pitch;
+	m_Camera->UpdateViewMatrix();
+
+	buffers->bindRefractionFrameBuffer();
+	RenderScene(vec4(0, -1, 0, waterAltura));
+
+	buffers->unbindCurrentFrameBuffer();
+
+	RenderScene(vec4(0, -1, 0, 10000));
+	water->Render(m_Camera);
+
+	refractionTex->Render(m_Camera);
+	reflectionTex->Render(m_Camera);
 
 	Application::GetApplication().GetOpenGL()->EndScene();
 

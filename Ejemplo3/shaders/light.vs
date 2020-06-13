@@ -28,6 +28,7 @@ uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 
+uniform vec4 plane;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Vertex Shader
@@ -35,9 +36,11 @@ uniform mat4 projectionMatrix;
 void main(void)
 {
 	// Calculate the position of the vertex against the world, view, and projection matrices.
+	gl_ClipDistance[0] = dot(modelMatrix * vec4(inputPosition, 1.0f), plane);
+
 	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(inputPosition, 1.0f);
 
-	// Store the texture coordinates for the pixel shader.
+		// Store the texture coordinates for the pixel shader.
 	texCoord = inputTexCoord;
 	
 	// Calculate the normal vector against the model matrix only.

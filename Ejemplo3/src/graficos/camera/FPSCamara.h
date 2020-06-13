@@ -28,6 +28,8 @@ public:
 	inline void Translate(float x, float y, float z) { m_Position += vec3(x, y, z); }
 	inline void Rotate(float x, float y, float z) { m_Rotation += vec3(x, y, z); }
 
+	void UpdateViewMatrix();
+
 	Quaternion GetOrientation() const;
 	vec3 GetForwardDirection(const Quaternion& orientation) const;
 	vec3 GetUpDirection(const Quaternion& orientation) const;

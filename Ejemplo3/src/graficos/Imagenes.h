@@ -6,6 +6,8 @@
 
 #include <windows.h>
 #include <gdiplus.h>
+#define GLEW_STATIC
+#include <GL/glew.h>
 #include <gl/gl.h>
 #include <gl/glu.h>
 #include <exception>

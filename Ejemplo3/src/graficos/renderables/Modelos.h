@@ -1,5 +1,5 @@
-#ifndef _modelo
-#define _modelo
+#pragma once
+
 #include "graficos/Imagenes.h"
 #include "matematicas/VectorRR.h"
 #include "Geometrias.h"
@@ -274,5 +274,3 @@ public:
 	}
 	
 };
-
-#endif 

@@ -26,6 +26,13 @@
     <ClCompile Include="src\graficos\lightclass.cpp" />
     <ClCompile Include="src\graficos\lightshaderclass.cpp" />
     <ClCompile Include="src\graficos\renderables\cubo.cpp" />
+    <ClCompile Include="src\graficos\renderables\DebugTexture.cpp" />
+    <ClCompile Include="src\graficos\renderables\Geometrias.cpp" />
+    <ClCompile Include="src\graficos\renderables\Renderable.cpp" />
+    <ClCompile Include="src\graficos\renderables\SkyDome.cpp" />
+    <ClCompile Include="src\graficos\renderables\Terreno.cpp" />
+    <ClCompile Include="src\graficos\renderables\Water.cpp" />
+    <ClCompile Include="src\graficos\renderables\WaterFrameBuffers.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\matematicas\mat4.cpp" />
     <ClCompile Include="src\matematicas\Quaternion.cpp" />
@@ -45,7 +52,13 @@
     <ClInclude Include="src\graficos\lightclass.h" />
     <ClInclude Include="src\graficos\lightshaderclass.h" />
     <ClInclude Include="src\graficos\renderables\cubo.h" />
+    <ClInclude Include="src\graficos\renderables\DebugTexture.h" />
+    <ClInclude Include="src\graficos\renderables\Geometrias.h" />
     <ClInclude Include="src\graficos\renderables\Renderable.h" />
+    <ClInclude Include="src\graficos\renderables\SkyDome.h" />
+    <ClInclude Include="src\graficos\renderables\Terreno.h" />
+    <ClInclude Include="src\graficos\renderables\Water.h" />
+    <ClInclude Include="src\graficos\renderables\WaterFrameBuffers.h" />
     <ClInclude Include="src\matematicas\mat4.h" />
     <ClInclude Include="src\matematicas\Quaternion.h" />
     <ClInclude Include="src\matematicas\vec2.h" />
@@ -60,6 +73,10 @@
   <ItemGroup>
     <None Include="shaders\cubo.ps" />
     <None Include="shaders\cubo.vs" />
+    <None Include="shaders\DebugTexture.ps" />
+    <None Include="shaders\DebugTexture.vs" />
+    <None Include="shaders\water.ps" />
+    <None Include="shaders\water.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -114,22 +131,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\GLEW\lib\$(Platform);$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\GLEW\lib\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\GLEW\lib\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\GLEW\lib\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -142,7 +165,7 @@
       <AdditionalIncludeDirectories>src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -156,7 +179,7 @@
       <AdditionalIncludeDirectories>src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>xinput.lib;winmm.lib;gdiplus.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -174,6 +197,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -190,6 +214,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

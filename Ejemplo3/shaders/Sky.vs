@@ -31,9 +31,9 @@ uniform mat4 projectionMatrix;
 ////////////////////////////////////////////////////////////////////////////////
 void main()
 {
+	gl_ClipDistance[0] = 1;
 	// Calculate the position of the vertex against the world, view, and projection matrices.
-	gl_Position = inverse(projectionMatrix * viewMatrix) * modelMatrix * vec4(inputPosition, 1.0f);
-
+	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(inputPosition, 1.0f);
 	// Store the texture coordinates for the pixel shader.
 	texCoord = inputTexCoord;
 	

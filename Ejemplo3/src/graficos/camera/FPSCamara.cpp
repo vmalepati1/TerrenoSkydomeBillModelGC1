@@ -92,6 +92,13 @@ void FPSCamara::Update()
 	}
 }
 
+void FPSCamara::UpdateViewMatrix() {
+	Quaternion orientation = GetOrientation();
+	mat4 rotation = mat4::Rotate(orientation.Conjugate());
+	mat4 translation = mat4::Translate(-m_Position);
+	m_ViewMatrix = rotation * translation;
+}
+
 Quaternion FPSCamara::GetOrientation() const
 {
 	return Quaternion::RotationY(-m_Yaw) * Quaternion::RotationX(-m_Pitch);

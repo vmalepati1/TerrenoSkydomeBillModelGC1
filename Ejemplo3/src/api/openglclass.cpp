@@ -58,11 +58,20 @@ bool OpenGLClass::InitializeExtensions()
 		return false;
 	}
 
+	/* Es muy estúpido cargar extensiones manualmente */
+	/* Usa GLEW como hice a continuación */
 	// Initialize the OpenGL extensions needed for this application.  Note that a temporary rendering context was needed to do so.
 	result = LoadExtensionList();
 	if(!result)
 	{
 		return false;
+	}
+
+	GLenum err = glewInit();
+	if (GLEW_OK != err)
+	{
+		/* Problem: glewInit failed, something is seriously wrong. */
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 	}
 
 	// Release the temporary rendering context now that the extensions have been loaded.

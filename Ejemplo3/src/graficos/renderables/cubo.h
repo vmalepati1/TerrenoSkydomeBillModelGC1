@@ -4,37 +4,9 @@
 // #include "Geometrias.h"
 #include "graficos/lightshaderclass.h"
 
-//estructura para manejar primitivos con posicion, normal y uv's
-struct Vertices {
-	float Posx, Posy, Posz;
-	float Normx, Normy, Normz;
-	float u, v;
-	float Tx, Ty, Tz;
-	float Bx, By, Bz;
-};
-
-//En honor a nuestros ancestros llamaremos "Maya" a la malla
-//estructura que contiene datos de los vertices y sus indices
-struct Maya {
-	Vertices* maya;
-	unsigned int* indices;
-};
-
-class Cubo : Renderable {
-private:
-	Maya *vertData;
-	LightShaderClass* shader;
-
-	unsigned int m_vertexArrayId, m_vertexBufferId, m_indexBufferId;
-
-	void Bind() override;
-	void Unbind() override;
-
+class Cubo : public Renderable {
 public:
-	Cubo(float size);
-	~Cubo();
+	Cubo(float size, const mat4 &transform, LightClass *lightSetup);
 
-	void Render(FPSCamara *camera) override;
-
-	inline LightShaderClass* GetShader() { return shader; }
+	void RenderClipped(FPSCamara* camera, const vec4& clipPlane);
 };

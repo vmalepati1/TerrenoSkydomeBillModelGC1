@@ -10,6 +10,10 @@ uniform mat4 modelMatrix;
 uniform mat4 viewMatrix = mat4(1.0);
 uniform mat4 projectionMatrix = mat4(1.0);
 
+uniform vec4 plane;
+
 void main() {
+	gl_ClipDistance[0] = dot(modelMatrix * vec4(inputPosition, 1.0f), plane);
+
 	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(inputPosition, 1.0);
 }
