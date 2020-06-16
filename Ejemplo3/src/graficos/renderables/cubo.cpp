@@ -79,25 +79,3 @@ Cubo::Cubo(float size, const mat4 &transform, LightClass *lightSetup)
 
 	PushBuffers();
 }
-
-void Cubo::RenderClipped(FPSCamara* camera, const vec4& clipPlane) {
-	BindBuffers();
-	Bind();
-
-	m_shader->PonVec4("plane", clipPlane);
-	m_shader->PonMatriz4x4("modelMatrix", m_transform);
-	m_shader->PonMatriz4x4("viewMatrix", camera->m_ViewMatrix);
-	m_shader->PonMatriz4x4("projectionMatrix", camera->m_ProjectionMatrix);
-	m_shader->PonVec3("lightDirection", m_lightSetup->GetDirection());
-	m_shader->PonVec4("diffuseLightColor", m_lightSetup->GetDiffuseColor());
-
-	glEnable(GL_BLEND);
-	glEnable(GL_DEPTH_TEST);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glFrontFace(GL_CCW);
-
-	glDrawElements(GL_TRIANGLES, cantIndices, GL_UNSIGNED_INT, NULL);
-
-	Unbind();
-	UnbindBuffers();
-}

@@ -42,27 +42,42 @@ bool GraphicsClass::Initialize()
 		return false;
 	}
 
-	m_Camera->m_Position = vec3(0.0, 50, 40.0);
+	m_Camera->SetPosition(vec3(0, 42.4008, -4.95687));
 	m_Camera->Focus();
 
 	m_Light = new LightClass();
-	m_Light->SetDiffuseColor(vec4(1.0f));
+	m_Light->SetAmbientColor(vec4(0.7f, 0.7f, 0.7f, 1.0f));
+	m_Light->SetDiffuseColor(vec4(0.7f, 0.7f, 0.7f, 1.0f));
+	m_Light->SetSpecularColor(vec4(0.7f, 0.7f, 0.7f, 1.0f));
 	m_Light->SetDirection(vec3(-5.0f, 0.5f, -1.0f));
+	m_Light->SetPosition(vec3(5.0f, 100.0f, -200.0f));
 
-	const float TILE_SIZE = 25;
+	const float TILE_SIZE = 100;
 
 	m_Cubo = new Cubo(1.0, mat4::Translate(vec3(0, 45, -45)) * mat4::Scale(vec3(10, 10, 10)), m_Light);
 	terreno = new Terreno(L"res/texturas/terreno.jpg", L"res/texturas/Zacatito.jpg", L"res/texturas/ZacatitoNorm.jpg",
 		(float)400, (float)400, 0, 1, mat4::Translate(vec3(0, 20, 0)), m_Light);
-	topDome = new SkyDome(32, 32, 256, L"res/texturas/earth.jpg", mat4::Translate(vec3(0, 35, 0)), m_Light);
-	bottomDome = new SkyDome(32, 32, 256, L"res/texturas/earth.jpg", mat4::Translate(vec3(0, 35, 0)) , m_Light);
+	dome = new SkyDome(32, 32, 256, L"res/texturas/SkyDay.jpg", L"res/texturas/SkyNight.png", mat4::Translate(vec3(0, 25, 0)), m_Light);
 	waterAltura = 35;
-	water = new Water(mat4::Translate(vec3(7, waterAltura, -3)) * mat4::Scale(vec3(TILE_SIZE, 0, TILE_SIZE)), m_Light);
-
 	buffers = new WaterFrameBuffers();
+	water = new Water(L"res/texturas/waterDUDV.png", L"res/texturas/waterNormal.png", mat4::Translate(vec3(7, waterAltura, -3)) * mat4::Scale(vec3(TILE_SIZE, 0, TILE_SIZE)), m_Light, buffers);
+
 	refractionTex = new DebugTexture(buffers->getRefractionTexture(), mat4::Translate(vec3(5, 5, 0)) * mat4::Scale(vec3(16.0/2.5, 9.0/2.5, 0)));
 	reflectionTex = new DebugTexture(buffers->getReflectionTexture(), mat4::Translate(vec3(-10, 5, 0)) * mat4::Scale(vec3(16.0 / 2.5, 9.0 / 2.5, 0)));
 
+	// town = new OBJModel("res/modelos/modelo.obj");
+	airship = new SimpleOBJModel("res/modelos/barco.obj", L"res/texturas/ship_diffuse.PNG", true, mat4::Translate(vec3(0, 35, 0)) * mat4::Rotate(180.0, vec3(0, 1, 0)) * mat4::Scale(vec3(5, 5, 5)), m_Light);
+	balloon = new SimpleOBJModel("res/modelos/airship.obj", L"res/texturas/airship.PNG", false, mat4::Translate(vec3(0, 65, -100)) * mat4::Scale(vec3(0.1, 0.1, 0.1)), m_Light);
+	// test = new OBJModel("res/modelos/barco.obj", true, mat4::Translate(vec3(0, 50, 0)) * mat4::Scale(vec3(5, 5, 5)), m_Light);
+	b1 = new Billboard(L"res/texturas/bricks-png-2.png", mat4::Translate(vec3(0, 45, -70)) * mat4::Rotate(90.0f, vec3(1.0f, 0.0f, 0.0f)) * mat4::Scale(vec3(19, 0, 7.54)), m_Light);
+	b2 = new Billboard(L"res/texturas/580b585b2edbce24c47b2ba0.png", mat4::Translate(vec3(30, 45, -70)) * mat4::Rotate(90.0f, vec3(1.0f, 0.0f, 0.0f)) * mat4::Scale(vec3(15.0, 0, 14.15)), m_Light);
+	b3 = new Billboard(L"res/texturas/heavy-duty-no-maintenance-recycled-plastic-garden-furniture-collection-gunby-picnic-bench.png", mat4::Translate(vec3(65, 45, -70)) * mat4::Rotate(90.0f, vec3(1.0f, 0.0f, 0.0f)) * mat4::Scale(vec3(18.0, 0, 11.2)), m_Light);
+	b4 = new Billboard(L"res/texturas/park-bench-clipart-2.png", mat4::Translate(vec3(-30, 45, -70)) * mat4::Rotate(90.0f, vec3(1.0f, 0.0f, 0.0f)) * mat4::Scale(vec3(12.5, 0, 7.0)), m_Light);
+	b5 = new Billboard(L"res/texturas/street_light_PNG11512.png", mat4::Translate(vec3(-60, 45, -70)) * mat4::Rotate(90.0f, vec3(1.0f, 0.0f, 0.0f)) * mat4::Scale(vec3(10.24, 0, 12.8)), m_Light);
+	// b3 = new Billboard(L"res/texturas/580b585b2edbce24c47b2ba0.png", mat4::Translate(vec3(50, 45, -70)) * mat4::Rotate(90.0f, vec3(1.0f, 0.0f, 0.0f)) * mat4::Scale(vec3(15.0, 0, 14.15)), m_Light);
+	// = new Billboard(L"res/texturas/bricks-png-2.png", mat4::Translate(vec3(0, 45, -70)) * mat4::Rotate(90.0f, vec3(1.0f, 0.0f, 0.0f)) * mat4::Scale(vec3(19, 0, 7.54)), m_Light);
+	// = new Billboard(L"res/texturas/bricks-png-2.png", mat4::Translate(vec3(0, 45, -70)) * mat4::Rotate(90.0f, vec3(1.0f, 0.0f, 0.0f)) * mat4::Scale(vec3(19, 0, 7.54)), m_Light);
+	// = new Billboard(L"res/texturas/bricks-png-2.png", mat4::Translate(vec3(0, 45, -70)) * mat4::Rotate(90.0f, vec3(1.0f, 0.0f, 0.0f)) * mat4::Scale(vec3(19, 0, 7.54)), m_Light);
 	/*
 
 
@@ -189,9 +204,18 @@ void GraphicsClass::Shutdown()
 }
 
 void GraphicsClass::RenderScene(const vec4& clippingPlane) {
-	topDome->Render(m_Camera);
-	terreno->RenderClipped(m_Camera, clippingPlane);
-	m_Cubo->RenderClipped(m_Camera, clippingPlane);
+	dome->Render(m_Camera, clippingPlane);
+	terreno->Render(m_Camera, clippingPlane);
+	// m_Cubo->Render(m_Camera, clippingPlane);
+	balloon->Render(m_Camera, clippingPlane);
+	airship->Render(m_Camera, clippingPlane);
+	b5->Render(m_Camera, clippingPlane);
+	b4->Render(m_Camera, clippingPlane);
+	b3->Render(m_Camera, clippingPlane);
+	b2->Render(m_Camera, clippingPlane);
+	b1->Render(m_Camera, clippingPlane);
+	
+	// test->Render(m_Camera, clippingPlane);
 }
 
 void GraphicsClass::Render()
@@ -203,16 +227,20 @@ void GraphicsClass::Render()
 
 	m_Camera->Update();
 
+	// airship->SetTransform(mat4::Translate(vec3(0, 35, 0)) * mat4::Rotate(180.0, vec3(0, 1, 0)) * mat4::Rotate(-m_Camera->GetYaw() * 180.0 / M_PI * 0.5, vec3(0, 1, 0)) * mat4::Scale(vec3(5, 5, 5)));
+
+	airship->SetTransform(mat4::Translate(vec3(m_Camera->GetPosition().x, 35, m_Camera->GetPosition().z + 4.95687)) * mat4::Rotate(180.0, vec3(0, 1, 0)) * mat4::Scale(vec3(5, 5, 5)));
+
 	glEnable(GL_CLIP_DISTANCE0);
 
 	buffers->bindReflectionFrameBuffer();
-	float distance = 2 * (m_Camera->m_Position.y - waterAltura);
-	m_Camera->m_Position.y -= distance;
-	m_Camera->m_Pitch = -m_Camera->m_Pitch;
+	float distance = 2 * (m_Camera->GetPosition().y - waterAltura);
+	m_Camera->Translate(0, -distance, 0);
+	m_Camera->InvertPitch();
 	m_Camera->UpdateViewMatrix();
-	RenderScene(vec4(0, 1, 0, -waterAltura));
-	m_Camera->m_Position.y += distance;
-	m_Camera->m_Pitch = -m_Camera->m_Pitch;
+	RenderScene(vec4(0, 1, 0, -waterAltura+1.0f));
+	m_Camera->Translate(0, distance, 0);
+	m_Camera->InvertPitch();
 	m_Camera->UpdateViewMatrix();
 
 	buffers->bindRefractionFrameBuffer();
@@ -221,72 +249,10 @@ void GraphicsClass::Render()
 	buffers->unbindCurrentFrameBuffer();
 
 	RenderScene(vec4(0, -1, 0, 10000));
-	water->Render(m_Camera);
+	water->Render(m_Camera, vec4(0, -1, 0, 10000));
 
-	refractionTex->Render(m_Camera);
-	reflectionTex->Render(m_Camera);
+	// refractionTex->Render(m_Camera);
+	// reflectionTex->Render(m_Camera);
 
 	Application::GetApplication().GetOpenGL()->EndScene();
-
-	/*
-	glDisable(GL_DEPTH_TEST);
-	m_LightShaderSky->SetShader(m_OpenGL);
-	m_LightShaderSky->PonMatriz4x4(m_OpenGL, (char*)"modelMatrix", mat4::Identity());
-	m_LightShaderSky->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", m_Camera->m_ViewMatrix);
-	m_LightShaderSky->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", m_Camera->m_ProjectionMatrix);
-	m_LightShaderSky->Pon1Entero(m_OpenGL, (char*)"cielo", 2);
-	m_LightShaderSky->PonVec3(m_OpenGL, (char*)"lightDirection", m_Light->GetDirection().);
-	m_LightShaderSky->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
-	sky->Render(m_OpenGL);
-	glEnable(GL_DEPTH_TEST);
-	*/
-	// Rotate the world matrix by the rotation value so that the triangle will spin.
-	//m_OpenGL->MatrixRotationY(worldMatrix, rotation);
-
-	//// Set the light shader as the current shader program and set the matrices that it will use for rendering.
-	/*
-	m_LightShader->SetShader(m_OpenGL);	
-	m_LightShader->PonMatriz4x4(m_OpenGL, (char*)"modelMatrix", mat4::Identity());
-	m_LightShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", m_Camera->m_ViewMatrix);
-	m_LightShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", m_Camera->m_ProjectionMatrix);
-	m_LightShader->Pon1Entero(m_OpenGL, (char*)"shaderTexture", 0);
-	m_LightShader->Pon1Entero(m_OpenGL, (char*)"shaderTexture2", 1);
-	m_LightShader->PonVec3(m_OpenGL, (char*)"lightDirection", m_Light->GetDirection());
-	m_LightShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", m_Light->GetDiffuseColor());
-	// Render the model using the light shader.
-	terreno->Render(m_OpenGL);
-	*/
-
-	/*
-	//// Set the light shader as the current shader program and set the matrices that it will use for rendering.
-	//
-	m_OpenGL->MatrixTranslation(worldMatrixBill, bill->x, terreno->Superficie(bill->x, bill->z) - 1, bill->z);	
-	float rotay[16];
-	m_OpenGL->MatrixRotationY(rotay, -bill->angBill(m_Camera->m_Position.x, m_Camera->m_Position.z));
-	m_OpenGL->MatrixMultiply(worldMatrixBill, rotay, worldMatrixBill);
-	m_BillShader->SetShader(m_OpenGL);
-	m_BillShader->PonMatriz4x4(m_OpenGL, (char*)"modelMatrix", worldMatrixBill);
-	m_BillShader->PonMatriz4x4T(m_OpenGL, (char*)"viewMatrix", m_Camera->m_ViewMatrix.elements);
-	m_BillShader->PonMatriz4x4T(m_OpenGL, (char*)"projectionMatrix", m_Camera->m_ProjectionMatrix.elements);
-	m_BillShader->Pon1Entero(m_OpenGL, (char*)"billtext", 3);
-	m_BillShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
-	m_BillShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
-	// Render the model using the light shader.
-	bill->Render(m_OpenGL);
-	
-	// Set the light shader as the current shader program and set the matrices that it will use for rendering.
-	m_ModeloShader->SetShader(m_OpenGL);
-	float modmatrix[16];
-	m_OpenGL->GetWorldMatrix(modmatrix);
-	m_OpenGL->MatrixTranslation(modmatrix, modelazo->x, terreno->Superficie(modelazo->x, modelazo->z), modelazo->z);
-	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"modelMatrix", modmatrix);
-	m_ModeloShader->PonMatriz4x4T(m_OpenGL, (char*)"viewMatrix", m_Camera->m_ViewMatrix.elements);
-	m_ModeloShader->PonMatriz4x4T(m_OpenGL, (char*)"projectionMatrix", m_Camera->m_ProjectionMatrix.elements);
-	m_ModeloShader->Pon1Entero(m_OpenGL, (char*)"modtext", 4);
-	m_ModeloShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
-	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
-	// Render the model using the light shader.
-	modelazo->Render(m_OpenGL);
-	// Present the rendered scene to the screen.
-	*/
 }

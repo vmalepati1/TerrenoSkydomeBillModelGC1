@@ -1,8 +1,9 @@
 #include "Water.h"
 #include "platform/Application.h"
 
-Water::Water(const mat4& transform, LightClass* lightSetup) 
+Water::Water(const wchar_t* dudvMap, const wchar_t* normalMap, const mat4& transform, LightClass* lightSetup, WaterFrameBuffers* fbos)
 	: Renderable(transform, lightSetup) {
+	m_fbos = fbos;
 
 	m_shader = new LightShaderClass("shaders/water.vs", "shaders/water.ps");
 	// Initialize the light shader object.
@@ -40,8 +41,62 @@ Water::Water(const mat4& transform, LightClass* lightSetup)
 	};
 
 	PushBuffers();
+
+	m_dudvTextureID = LoadTexture(dudvMap);
+	m_normalMapID = LoadTexture(normalMap);
+
+	waveSpeed = 0.06;
+	moveFactor = 0;
 }
 
 Water::~Water() {
 
+}
+
+void Water::Bind(FPSCamara* camera) {
+	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_fbos->getReflectionTexture());
+
+	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, m_fbos->getRefractionTexture());
+
+	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, m_dudvTextureID);
+
+	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE3);
+	glBindTexture(GL_TEXTURE_2D, m_normalMapID);
+
+	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE4);
+	glBindTexture(GL_TEXTURE_2D, m_fbos->getRefractionDepthTexture());
+
+	m_shader->Pon1Entero("reflectionTexture", 0);
+	m_shader->Pon1Entero("refractionTexture", 1);
+	m_shader->Pon1Entero("dudvMap", 2);
+	m_shader->Pon1Entero("normalMap", 3);
+	m_shader->Pon1Entero("depthMap", 4);
+
+	moveFactor += waveSpeed * (Application::GetApplication().GetFrametime() / 1000.0);
+	moveFactor = fmod(moveFactor, 1);
+	m_shader->Pon1Flota("moveFactor", moveFactor);
+
+	m_shader->PonVec3("cameraPosition", camera->GetPosition());
+	m_shader->Pon1Flota("near", Application::GetApplication().GetWindowNear());
+	m_shader->Pon1Flota("far", Application::GetApplication().GetWindowFar());
+}
+
+void Water::Unbind(FPSCamara* camera) {
+	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE3);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE4);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }

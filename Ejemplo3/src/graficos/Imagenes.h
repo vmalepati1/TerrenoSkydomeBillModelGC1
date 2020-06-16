@@ -118,6 +118,37 @@ public:
 		delete[] dir_imagen;
 	}
 
+	unsigned int LoadTexture(const wchar_t* nombre) {
+		unsigned int texId;
+
+		Carga(nombre);
+		// Generate an ID for the texture.
+		glGenTextures(1, &texId);
+
+		// Bind the texture as a 2D texture.
+		glBindTexture(GL_TEXTURE_2D, texId);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		// Set the texture filtering.
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+		// Load the image data into the texture unit.
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Ancho(), Alto(), 0,
+			GL_RGBA, GL_UNSIGNED_BYTE, Dir_Imagen());
+
+		// Generate mipmaps for the texture.
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		Descarga();
+
+		return texId;
+	}
+
 	unsigned char *Dir_Imagen()
 	{
 		//devuelve el puntero

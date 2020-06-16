@@ -36,53 +36,8 @@ Terreno::Terreno(const wchar_t* alturas, const wchar_t* textura, const wchar_t* 
 
 	PushBuffers();
 
-	Carga(textura);
-	// Generate an ID for the texture.
-	glGenTextures(1, &m_textureID1);
-
-	// Bind the texture as a 2D texture.
-	glBindTexture(GL_TEXTURE_2D, m_textureID1);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-
-	// Load the image data into the texture unit.
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Ancho(), Alto(), 0,
-		GL_RGBA, GL_UNSIGNED_BYTE, Dir_Imagen());
-
-	// Generate mipmaps for the texture.
-	Application::GetApplication().GetOpenGL()->glGenerateMipmap(GL_TEXTURE_2D);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	Descarga();
-
-	Carga(textura2);
-	// Generate an ID for the texture.
-	glGenTextures(1, &m_textureID2);
-
-	// Bind the texture as a 2D texture.
-	glBindTexture(GL_TEXTURE_2D, m_textureID2);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	// Set the texture filtering.
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-
-	// Load the image data into the texture unit.
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Ancho(), Alto(), 0,
-		GL_RGBA, GL_UNSIGNED_BYTE, Dir_Imagen());
-
-	// Generate mipmaps for the texture.
-	Application::GetApplication().GetOpenGL()->glGenerateMipmap(GL_TEXTURE_2D);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	Descarga();
+	m_textureID1 = LoadTexture(textura);
+	m_textureID2 = LoadTexture(textura2);
 }
 
 Terreno::~Terreno() {
@@ -151,7 +106,7 @@ float Terreno::Superficie(float x, float z) {
 	return altura;
 }
 
-void Terreno::Bind() {
+void Terreno::Bind(FPSCamara* camera) {
 	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE0 + slot1);
 	glBindTexture(GL_TEXTURE_2D, m_textureID1);
 
@@ -162,32 +117,10 @@ void Terreno::Bind() {
 	m_shader->Pon1Entero("shaderTexture2", 1);
 }
 
-void Terreno::Unbind() {
+void Terreno::Unbind(FPSCamara* camera) {
 	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE0 + slot1);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE0 + slot2);
 	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void Terreno::RenderClipped(FPSCamara* camera, const vec4& clipPlane) {
-	BindBuffers();
-	Bind();
-
-	m_shader->PonVec4("plane", clipPlane);
-	m_shader->PonMatriz4x4("modelMatrix", m_transform);
-	m_shader->PonMatriz4x4("viewMatrix", camera->m_ViewMatrix);
-	m_shader->PonMatriz4x4("projectionMatrix", camera->m_ProjectionMatrix);
-	m_shader->PonVec3("lightDirection", m_lightSetup->GetDirection());
-	m_shader->PonVec4("diffuseLightColor", m_lightSetup->GetDiffuseColor());
-
-	glEnable(GL_BLEND);
-	glEnable(GL_DEPTH_TEST);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glFrontFace(GL_CCW);
-
-	glDrawElements(GL_TRIANGLES, cantIndices, GL_UNSIGNED_INT, NULL);
-
-	Unbind();
-	UnbindBuffers();
 }

@@ -13,8 +13,8 @@ protected:
 	virtual void PushBuffers();
 	virtual void BindBuffers();
 	virtual void UnbindBuffers();
-	virtual void Bind() { }
-	virtual void Unbind() { }
+	virtual void Bind(FPSCamara *camera) { }
+	virtual void Unbind(FPSCamara *camera) { }
 protected:
 	unsigned int m_vertexArrayId, m_vertexBufferId, m_indexBufferId;
 
@@ -25,7 +25,7 @@ protected:
 
 	mat4 m_transform;
 public:
-	virtual void Render(FPSCamara *camera);
+	virtual void Render(FPSCamara *camera, const vec4& clipPlane);
 
 	inline LightShaderClass* GetShader() { return m_shader; }
 

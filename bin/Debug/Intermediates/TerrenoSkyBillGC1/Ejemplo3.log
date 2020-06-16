@@ -3,7 +3,14 @@ C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos
 C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\Imagenes.h(82,28): warning C4101: 'e': unreferenced local variable
 C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\platform\InputGerente.h(129,1): warning C4005: 'KEY_EXECUTE': macro redefinition
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winnt.h(21418): message : see previous definition of 'KEY_EXECUTE'
-C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\graphicsclass.cpp(63,138): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\graphicsclass.cpp(64,144): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\graphicsclass.cpp(202,79): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\graphicsclass.cpp(45,49): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\graphicsclass.cpp(65,138): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\graphicsclass.cpp(66,144): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\graphicsclass.cpp(70,161): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\graphicsclass.cpp(72,165): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\graphicsclass.cpp(73,181): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\graphicsclass.cpp(74,245): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\graphicsclass.cpp(76,179): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\graphicsclass.cpp(226,79): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\Ejemplo3\src\graficos\graphicsclass.cpp(232,102): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Ejemplo3.vcxproj -> C:\Users\malep\Documents\GitHub\TerrenoSkydomeBillModelGC1\bin\Debug\TerrenoSkyBillGC1.exe

@@ -1,7 +1,7 @@
 #include "SkyDome.h"
 #include "platform/Application.h"
 
-SkyDome::SkyDome(int stacks, int slices, float radio, const wchar_t nombre[], const mat4 &transform, LightClass *lightSetup)
+SkyDome::SkyDome(int stacks, int slices, float radio, const wchar_t dayTexture[], const wchar_t nightTexture[], const mat4& transform, LightClass* lightSetup)
 	: Renderable(transform, lightSetup) {
 
 	m_shader = new LightShaderClass("shaders/Sky.vs", "shaders/Sky.ps");
@@ -19,62 +19,75 @@ SkyDome::SkyDome(int stacks, int slices, float radio, const wchar_t nombre[], co
 	sl = slices;
 
 	PushBuffers();
+	
+	m_dayTextureID = LoadTexture(dayTexture);
+	m_nightTextureID = LoadTexture(nightTexture);
 
-	//cargamos la textura de la figura
-	Carga(nombre);
-	int an = Ancho();
-	int alt = Alto();
-
-	// Generate an ID for the texture.
-	glGenTextures(1, &m_textureID);
-
-	// Bind the texture as a 2D texture.
-	glBindTexture(GL_TEXTURE_2D, m_textureID);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	// Set the texture filtering.
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-
-	// Load the image data into the texture unit.
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Ancho(), Alto(), 0,
-		GL_RGBA, GL_UNSIGNED_BYTE, Dir_Imagen());
-
-	// Generate mipmaps for the texture.
-	Application::GetApplication().GetOpenGL()->glGenerateMipmap(GL_TEXTURE_2D);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	Descarga();
+	time = 0;
 }
 
 SkyDome::~SkyDome() {
-	glDeleteTextures(1, &m_textureID);
+	glDeleteTextures(1, &m_dayTextureID);
+	glDeleteTextures(1, &m_nightTextureID);
 }
 
-void SkyDome::Bind() {
-	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_textureID);
+void SkyDome::Bind(FPSCamara* camera) {
+	time += Application::GetApplication().GetFrametime();
+	time = fmod(time, 24000);
+	int texture1 = m_dayTextureID;
+	int texture2 = m_dayTextureID;
+	float blendFactor = 0.0;
 
-	m_shader->Pon1Entero("cielo", 0);
+	if (time >= 0 && time < 5000) {
+		texture1 = m_nightTextureID;
+		texture2 = m_nightTextureID;
+		blendFactor = (time - 0) / (5000 - 0);
+	}
+	else if (time >= 5000 && time < 8000) {
+		texture1 = m_nightTextureID;
+		texture2 = m_dayTextureID;
+		blendFactor = (time - 5000) / (8000 - 5000);
+	}
+	else if (time >= 8000 && time < 21000) {
+		texture1 = m_dayTextureID;
+		texture2 = m_dayTextureID;
+		blendFactor = (time - 8000) / (21000 - 8000);
+	}
+	else {
+		texture1 = m_dayTextureID;
+		texture2 = m_nightTextureID;
+		blendFactor = (time - 21000) / (24000 - 21000);
+	}
+
+	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture1);
+
+	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texture2);
+
+	m_shader->Pon1Entero("texture1", 0);
+	m_shader->Pon1Entero("texture2", 1);
+	m_shader->Pon1Flota("blendFactor", blendFactor);
 }
 
-void SkyDome::Unbind() {
+void SkyDome::Unbind(FPSCamara* camera) {
 	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void SkyDome::Render(FPSCamara* camera) {
+void SkyDome::Render(FPSCamara* camera, const vec4& clipPlane) {
 	BindBuffers();
-	Bind();
+	Bind(camera);
 
 	m_shader->PonMatriz4x4("modelMatrix", m_transform);
-	m_shader->PonMatriz4x4("viewMatrix", camera->m_ViewMatrix);
-	m_shader->PonMatriz4x4("projectionMatrix", camera->m_ProjectionMatrix);
+	m_shader->PonMatriz4x4("viewMatrix", camera->GetViewMatrix());
+	m_shader->PonMatriz4x4("projectionMatrix", camera->GetProjectionMatrix());
 	m_shader->PonVec3("lightDirection", m_lightSetup->GetDirection());
 	m_shader->PonVec4("diffuseLightColor", m_lightSetup->GetDiffuseColor());
+	m_shader->PonVec3("lightPosition", m_lightSetup->GetPosition());
 
 	glDisable(GL_DEPTH_TEST);
 
@@ -86,6 +99,6 @@ void SkyDome::Render(FPSCamara* camera) {
 
 	glEnable(GL_DEPTH_TEST);
 
-	Unbind();
+	Unbind(camera);
 	UnbindBuffers();
 }

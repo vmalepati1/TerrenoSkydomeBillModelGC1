@@ -28,9 +28,7 @@ public:
 	
 	/* Obtener la altura desde posicion (x, z) */
 	float Superficie(float x, float z);
-
-	void RenderClipped(FPSCamara* camera, const vec4 &clipPlane);
 private:
-	void Bind() override;
-	void Unbind() override;
+	void Bind(FPSCamara* camera) override;
+	void Unbind(FPSCamara* camera) override;
 };

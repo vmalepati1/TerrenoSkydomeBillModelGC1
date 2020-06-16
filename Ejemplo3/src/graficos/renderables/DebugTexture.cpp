@@ -45,21 +45,21 @@ DebugTexture::DebugTexture(unsigned int textureID, const mat4& transform)
 	PushBuffers();
 }
 
-void DebugTexture::Bind() {
+void DebugTexture::Bind(FPSCamara* camera) {
 	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_textureID);
 
 	m_shader->Pon1Entero("tex", 0);
 }
 
-void DebugTexture::Unbind() {
+void DebugTexture::Unbind(FPSCamara* camera) {
 	Application::GetApplication().GetOpenGL()->glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void DebugTexture::Render(FPSCamara* camera) {
+void DebugTexture::Render(FPSCamara* camera, const vec4& clipPlane) {
 	BindBuffers();
-	Bind();
+	Bind(camera);
 
 	m_shader->PonMatriz4x4("transformation", m_transform);
 	m_shader->PonMatriz4x4("projectionMatrix", mat4::Orthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
@@ -71,6 +71,6 @@ void DebugTexture::Render(FPSCamara* camera) {
 
 	glDrawElements(GL_TRIANGLES, cantIndices, GL_UNSIGNED_INT, NULL);
 
-	Unbind();
+	Unbind(camera);
 	UnbindBuffers();
 }

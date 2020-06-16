@@ -37,6 +37,7 @@ public:
 	void Unbind();
 	bool PonMatriz4x4(const string &nombre, const mat4 &matrix);
 	bool Pon1Entero(const string& nombre, int);
+	bool Pon1Flota(const string& nombre, float);
 	bool PonVec2(const string &nombre, const vec2 &vector);
 	bool PonVec3(const string &nombre, const vec3 &vector);
 	bool PonVec4(const string &nombre, const vec4 &vector);

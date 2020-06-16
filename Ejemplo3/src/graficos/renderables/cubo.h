@@ -7,6 +7,4 @@
 class Cubo : public Renderable {
 public:
 	Cubo(float size, const mat4 &transform, LightClass *lightSetup);
-
-	void RenderClipped(FPSCamara* camera, const vec4& clipPlane);
 };

@@ -52,7 +52,7 @@ void FPSCamara::Update()
 		if (m_MouseWasGrabbed)
 		{
 			m_Yaw += mouse.x * m_MouseSensitivity;
-			m_Pitch += mouse.y * m_MouseSensitivity;
+			// m_Pitch += mouse.y * m_MouseSensitivity;
 		}
 		m_MouseWasGrabbed = true;
 		inputManager->SetMousePosition(windowCenter);

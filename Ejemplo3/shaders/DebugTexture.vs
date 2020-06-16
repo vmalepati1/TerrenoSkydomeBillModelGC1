@@ -11,6 +11,8 @@ out vec2 textureCoords;
 uniform mat4 projectionMatrix = mat4(1.0);
 uniform mat4 transformation = mat4(1.0);
 
+uniform vec3 lightPosition;
+
 void main() {
 	gl_ClipDistance[0] = 1;
 	gl_Position = projectionMatrix * transformation * vec4(inputPosition, 1.0);

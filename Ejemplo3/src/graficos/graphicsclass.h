@@ -21,7 +21,9 @@
 #include "graficos/renderables/Water.h"
 #include "graficos/renderables/WaterFrameBuffers.h"
 #include "graficos/renderables/DebugTexture.h"
-
+#include "graficos/renderables/modelos/SimpleOBJModel.h"
+#include "graficos/renderables/modelos/OBJModel.h"
+#include "graficos/renderables/Billboard.h"
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: GraphicsClass
 ////////////////////////////////////////////////////////////////////////////////
@@ -51,11 +53,21 @@ private:
 	float waterAltura;
 	LightClass* m_Light;
 	Terreno* terreno;
-	SkyDome* topDome;
-	SkyDome* bottomDome;
+	SkyDome* dome;
 	Water* water;
 	Cubo* m_Cubo;
 	WaterFrameBuffers* buffers;
 	DebugTexture* refractionTex;
 	DebugTexture* reflectionTex;
+
+	SimpleOBJModel* airship;
+	SimpleOBJModel* balloon;
+
+	Billboard* b1;
+	Billboard* b2;
+	Billboard* b3;
+	Billboard* b4;
+	Billboard* b5;
+
+	// OBJModel* test;
 };

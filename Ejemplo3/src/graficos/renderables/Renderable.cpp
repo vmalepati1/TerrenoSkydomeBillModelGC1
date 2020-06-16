@@ -85,15 +85,17 @@ void Renderable::UnbindBuffers() {
 	m_shader->Unbind();
 }
 
-void Renderable::Render(FPSCamara* camera) {
+void Renderable::Render(FPSCamara* camera, const vec4& clipPlane) {
 	BindBuffers();
-	Bind();
+	Bind(camera);
 
+	m_shader->PonVec4("plane", clipPlane);
 	m_shader->PonMatriz4x4("modelMatrix", m_transform);
-	m_shader->PonMatriz4x4("viewMatrix", camera->m_ViewMatrix);
-	m_shader->PonMatriz4x4("projectionMatrix", camera->m_ProjectionMatrix);
+	m_shader->PonMatriz4x4("viewMatrix", camera->GetViewMatrix());
+	m_shader->PonMatriz4x4("projectionMatrix", camera->GetProjectionMatrix());
 	m_shader->PonVec3("lightDirection", m_lightSetup->GetDirection());
 	m_shader->PonVec4("diffuseLightColor", m_lightSetup->GetDiffuseColor());
+	m_shader->PonVec3("lightPosition", m_lightSetup->GetPosition());
 
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
@@ -102,6 +104,6 @@ void Renderable::Render(FPSCamara* camera) {
 
 	glDrawElements(GL_TRIANGLES, cantIndices, GL_UNSIGNED_INT, NULL);
 
-	Unbind();
+	Unbind(camera);
 	UnbindBuffers();
 }

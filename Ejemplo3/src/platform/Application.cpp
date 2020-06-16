@@ -176,7 +176,6 @@ void Application::Run() {
 	float updateTick = 1000.0f / 60.0f;
 	uint32_t frames = 0;
 	uint32_t updates = 0;
-	float frametime = 0.0;
 
 	// Loop until there is a quit message from the window or the user.
 	while (m_Running)

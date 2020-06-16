@@ -84,6 +84,21 @@
     <ClCompile Include="src\graficos\renderables\DebugTexture.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\graficos\renderables\modelos\OBJModel.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graficos\renderables\modelos\OBJLoader.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graficos\renderables\modelos\OBJMesh.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graficos\renderables\modelos\SimpleOBJModel.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graficos\renderables\Billboard.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\api\openglclass.h">
@@ -161,6 +176,21 @@
     <ClInclude Include="src\graficos\renderables\DebugTexture.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="src\graficos\renderables\modelos\OBJLoader.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graficos\renderables\modelos\OBJModel.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graficos\renderables\modelos\OBJMesh.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graficos\renderables\modelos\SimpleOBJModel.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graficos\renderables\Billboard.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\cubo.vs" />
@@ -169,5 +199,9 @@
     <None Include="shaders\water.ps" />
     <None Include="shaders\DebugTexture.vs" />
     <None Include="shaders\DebugTexture.ps" />
+    <None Include="shaders\AdvancedLighting.vs" />
+    <None Include="shaders\AdvancedLighting.ps" />
+    <None Include="shaders\SimpleObject.vs" />
+    <None Include="shaders\SimpleObject.ps" />
   </ItemGroup>
 </Project>

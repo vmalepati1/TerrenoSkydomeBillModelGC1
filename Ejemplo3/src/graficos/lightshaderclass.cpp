@@ -348,6 +348,21 @@ bool LightShaderClass::Pon1Entero(const string& nombre, int valor)
 	return true;
 }
 
+bool LightShaderClass::Pon1Flota(const string& nombre, float valor)
+{
+	unsigned int location;
+
+	// Set the texture in the pixel shader to use the data from the first texture unit.
+	location = Application::GetApplication().GetOpenGL()->glGetUniformLocation(m_shaderProgram, nombre.c_str());
+	if (location == -1)
+	{
+		return false;
+	}
+
+	glUniform1f(location, valor);
+	return true;
+}
+
 bool LightShaderClass::PonVec2(const string& nombre, const vec2& vector) {
 	unsigned int location;
 

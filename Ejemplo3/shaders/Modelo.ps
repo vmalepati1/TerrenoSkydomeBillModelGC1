@@ -1,37 +1,118 @@
-////////////////////////////////////////////////////////////////////////////////
-// Filename: light.ps
-////////////////////////////////////////////////////////////////////////////////
 #version 400
 
-
-/////////////////////
-// INPUT VARIABLES //
-/////////////////////
-in vec2 texCoord;
-
-//////////////////////
-// OUTPUT VARIABLES //
-//////////////////////
-out vec4 outputColor;
-
-
-///////////////////////
-// UNIFORM VARIABLES //
-///////////////////////
-uniform sampler2D modtext;
-uniform vec3 lightDirection;
-uniform vec4 diffuseLightColor;
-
-
-////////////////////////////////////////////////////////////////////////////////
-// Pixel Shader
-////////////////////////////////////////////////////////////////////////////////
-void main(void)
+in DATA
 {
-	vec4 textureColor;
+	vec4 position;
+	vec3 normal;
+	vec2 uv;
+	vec3 binormal;
+	vec3 tangent;
+} fs_in;
 
-	// Obtener la textura difusa o de color
-	textureColor = texture(modtext, texCoord);	
-	
-	outputColor = textureColor;
+struct Attributes
+{
+	vec3 position;
+	vec3 normal;
+	vec3 binormal;
+	vec3 tangent;
+};
+
+uniform vec3 lightPosition;
+uniform vec3 lightDirection;
+uniform vec4 ambientLightColor;
+uniform vec4 diffuseLightColor;
+uniform vec4 specularLightColor;
+
+uniform sampler2D u_mapKa;
+uniform sampler2D u_mapKd;
+uniform sampler2D u_mapKs;
+uniform sampler2D u_normalMap;
+
+uniform float u_usingKaMap;
+uniform float u_usingKdMap;
+uniform float u_usingKsMap;
+uniform float u_usingNormalMap;
+
+uniform float u_shininess;
+
+uniform vec3 u_ka;
+uniform vec3 u_kd;
+uniform vec3 u_ks;
+
+Attributes g_Attributes;
+
+vec3 GetAmbient()
+{
+	if (u_usingKaMap > 0.0) {
+		return u_ka * texture(u_mapKa, fs_in.uv).rgb;
+	}
+
+	return u_ka;
+}
+
+vec3 GetDiffuse()
+{
+	if (u_usingKdMap >= 0.0) {
+		return u_kd * texture(u_mapKd, fs_in.uv).rgb;
+	}
+
+	return u_kd;
+}
+
+vec3 GetSpecular()
+{
+	if (u_usingKsMap >= 0.0) {
+		return u_ks * texture(u_mapKs, fs_in.uv).rgb;
+	}
+
+	return u_ks;
+}
+
+vec4 lightSource(vec3 norm, vec3 view)
+{
+    vec3 lightVector = normalize(lightPosition - view);
+    vec3 reflection = normalize(lightVector - normalize(view.xyz));
+
+    float diffuseFactor = max(0, dot(norm, lightVector));
+    float specularDot = max(0, dot(norm, reflection));
+
+    float specularFactor = pow(specularDot, u_shininess);
+
+    return 
+        vec4(GetAmbient(), 1.0) * ambientLightColor +
+        vec4(GetDiffuse(), 1.0) * diffuseLightColor * diffuseFactor +
+        vec4(GetSpecular(), 1.0) * specularLightColor * specularFactor;
+}
+
+vec3 NormalMap()
+{
+	mat3 toWorld = mat3(g_Attributes.binormal, g_Attributes.tangent, g_Attributes.normal);
+	vec3 normalMap = texture(u_normalMap, fs_in.uv).rgb * 2.0 - 1.0;
+	normalMap = toWorld * normalMap.rgb;
+	normalMap = normalize(normalMap);
+	return normalMap;
+}
+
+vec4 lighting()
+{
+    // normal might be damaged by linear interpolation.
+    vec3 norm = g_Attributes.normal;
+
+    return
+        vec4(GetAmbient(), 1.0) * ambientLightColor +
+        lightSource(norm, g_Attributes.position);
+}
+
+void main() {
+	g_Attributes.position = fs_in.position.xyz;
+	// Normalize inputs
+	g_Attributes.normal = normalize(fs_in.normal);
+	g_Attributes.tangent = normalize(fs_in.tangent);
+	g_Attributes.binormal = normalize(fs_in.binormal);
+
+	if (u_usingNormalMap > 0.0) {
+		g_Attributes.normal = NormalMap();
+	}
+
+	gl_FragColor = vec4(GetDiffuse(), 1.0) * lighting();
 }

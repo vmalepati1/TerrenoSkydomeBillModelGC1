@@ -25,9 +25,14 @@
     <ClCompile Include="src\graficos\graphicsclass.cpp" />
     <ClCompile Include="src\graficos\lightclass.cpp" />
     <ClCompile Include="src\graficos\lightshaderclass.cpp" />
+    <ClCompile Include="src\graficos\renderables\Billboard.cpp" />
     <ClCompile Include="src\graficos\renderables\cubo.cpp" />
     <ClCompile Include="src\graficos\renderables\DebugTexture.cpp" />
     <ClCompile Include="src\graficos\renderables\Geometrias.cpp" />
+    <ClCompile Include="src\graficos\renderables\modelos\SimpleOBJModel.cpp" />
+    <ClCompile Include="src\graficos\renderables\modelos\OBJLoader.cpp" />
+    <ClCompile Include="src\graficos\renderables\modelos\OBJMesh.cpp" />
+    <ClCompile Include="src\graficos\renderables\modelos\OBJModel.cpp" />
     <ClCompile Include="src\graficos\renderables\Renderable.cpp" />
     <ClCompile Include="src\graficos\renderables\SkyDome.cpp" />
     <ClCompile Include="src\graficos\renderables\Terreno.cpp" />
@@ -51,9 +56,14 @@
     <ClInclude Include="src\graficos\Imagenes.h" />
     <ClInclude Include="src\graficos\lightclass.h" />
     <ClInclude Include="src\graficos\lightshaderclass.h" />
+    <ClInclude Include="src\graficos\renderables\Billboard.h" />
     <ClInclude Include="src\graficos\renderables\cubo.h" />
     <ClInclude Include="src\graficos\renderables\DebugTexture.h" />
     <ClInclude Include="src\graficos\renderables\Geometrias.h" />
+    <ClInclude Include="src\graficos\renderables\modelos\SimpleOBJModel.h" />
+    <ClInclude Include="src\graficos\renderables\modelos\OBJLoader.h" />
+    <ClInclude Include="src\graficos\renderables\modelos\OBJMesh.h" />
+    <ClInclude Include="src\graficos\renderables\modelos\OBJModel.h" />
     <ClInclude Include="src\graficos\renderables\Renderable.h" />
     <ClInclude Include="src\graficos\renderables\SkyDome.h" />
     <ClInclude Include="src\graficos\renderables\Terreno.h" />
@@ -71,6 +81,10 @@
     <ClInclude Include="src\platform\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\AdvancedLighting.ps" />
+    <None Include="shaders\AdvancedLighting.vs" />
+    <None Include="shaders\SimpleObject.ps" />
+    <None Include="shaders\SimpleObject.vs" />
     <None Include="shaders\cubo.ps" />
     <None Include="shaders\cubo.vs" />
     <None Include="shaders\DebugTexture.ps" />
@@ -160,12 +174,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;OBJL_CONSOLE_OUTPUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader />
       <AdditionalIncludeDirectories>src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -175,11 +189,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;OBJL_CONSOLE_OUTPUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -192,12 +206,13 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>src</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;OBJL_CONSOLE_OUTPUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -209,12 +224,13 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>src</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;OBJL_CONSOLE_OUTPUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
